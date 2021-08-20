@@ -25,6 +25,8 @@ while last_number:
 print("Suma: ", sum, "średnia: ", sum/count)
 '''
 
+import sys
+
 elementsCount = int(input("Podaj maksymalną ilość elementów do wysyłki: "))
 if elementsCount <= 0:
     print("Błąd: Nieprawidłowa liczba elementów!")
@@ -34,7 +36,7 @@ emptyKgsMaxParcelNo = 0
 emptyKgs = 20
 emptyKgsMax = 0
 parcelsWeightAll = 0
-for i in range(elementsCount):
+for element in range(elementsCount):
     i += 1
     elementWeight = float(input(f"Podaj wagę {i}. elementu [kg]: "))
     if elementWeight == 0:
@@ -50,6 +52,12 @@ for i in range(elementsCount):
         if parcelsWeight > 20.0:
             parcelsNo += 1
             parcelsWeight = 0
+            emptyKgs = 20
+        emptyKgs -= elementWeight
+        if parcelsWeight > 20.0 or i == elementsCount:
+            if emptyKgs >= emptyKgsMax:
+                emptyKgsMaxParcelNo == i
+            emptyKgsMax = max(emptyKgsMax, emptyKgs)
 print(f"Liczba paczek wysłanych: {parcelsNo}")
 print(f"Suma kilogramów wysłanych: {parcelsWeightAll} kg")
 print(f"Suma 'pustych' kilogramów: {parcelsNo * 20 - parcelsWeightAll}")
